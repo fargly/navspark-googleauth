@@ -110,11 +110,11 @@ int main(int argc, char **argv)
 	
 	printf("Clef  : %s\n", key);
 	
-	hmac_sha1(key, strlen(key), epoch_str, 8, result, SHA1_DIGEST_LENGTH);
+	hmac_sha1(key, strlen((char *)key), (const uint8_t *)epoch_str, 8, result, SHA1_DIGEST_LENGTH);
 	
 	printf("HMAC  : %s\n", result);
 	
-	printf("Code  : %06d", compute_code(key, strlen(key), epoch));
+	printf("Code  : %06d", compute_code(key, strlen((char *)key), epoch));
 	
 	free(epoch_str);
 	epoch_str = NULL;
