@@ -121,7 +121,7 @@ int main(int argc, char **argv)
 		epoch_new = gettime_30();
 		if (epoch == epoch_new)
 		{
-			printf("%02d\r", 30 - time(NULL) % 30);
+			printf("%02d\r", (int)(30 - time(NULL) % 30));
 			mx_sleep(100);
 			continue;
 		}
