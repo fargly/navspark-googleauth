@@ -7,8 +7,11 @@
 #include "gettime.h"
 //#include "helper.h"
 #include "error.h"
-
-
+#include <time.h>
+#include "port.h"
+#ifndef _WIN32
+#include "rawmode.h"
+#endif
 
 /**********************************************************************************************************
  * Calculates secret key                                                                                  *
@@ -88,33 +91,48 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Usage : %s <key>\n", argv[0]);
 		return EXIT_FAILURE;
 	}
+
+#ifndef _WIN32
+	mode_raw(1);
+#endif
 	
 	uint8_t *key;
 	uint8_t *result = malloc(SHA1_DIGEST_LENGTH);
 	if (result == NULL)
 		errQuit("Cannot allocate memory");
 		
-	int epoch = gettime_30();
+	int epoch = 0;
+	int epoch_new = 0;
 	char *epoch_str;
 	int secretLen;
 
 	epoch_str = malloc(16 * sizeof(char));
+	
 	if (epoch_str == NULL)
 		errQuit("Cannot allocate memory");
-	
-	sprintf(epoch_str, "%016X", epoch);
 
-	printf("Temps : %s\n", epoch_str);
-	
 	key = get_shared_secret(argv[1], &secretLen);
-	
-	printf("Clef  : %s\n", key);
-	
-	hmac_sha1(key, strlen((char *)key), (const uint8_t *)epoch_str, 8, result, SHA1_DIGEST_LENGTH);
-	
-	printf("HMAC  : %s\n", result);
-	
-	printf("Code  : %06d", compute_code(key, strlen((char *)key), epoch));
+		
+	while(1)
+	{
+		if(mx_kbhit() != 0)
+			break;
+
+		epoch_new = gettime_30();
+		if (epoch == epoch_new)
+		{
+			printf("%02d\r", 30 - time(NULL) % 30);
+			mx_sleep(100);
+			continue;
+		}
+		epoch = epoch_new;
+		
+		sprintf(epoch_str, "%016X", epoch);
+
+		hmac_sha1(key, strlen((char *)key), (const uint8_t *)epoch_str, 8, result, SHA1_DIGEST_LENGTH);
+
+		printf("Code  : %06d\r\n", compute_code(key, strlen((char *)key), epoch));
+	}
 	
 	free(epoch_str);
 	epoch_str = NULL;

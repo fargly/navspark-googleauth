@@ -13,3 +13,6 @@ This is Ansi C with terminal version, not Arduino/Navspark version.
 
 Run this to compile program (replace "main" with "main.exe" for windows):
 gcc -g -Wall -std=c99 *.c -o main
+
+Test : ./main JBSWY3DPEHPK3PXP
+Should be the same code as http://blog.tinisles.com/2011/10/google-authenticator-one-time-password-algorithm-in-javascript/
