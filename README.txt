@@ -11,8 +11,12 @@ To get access, please email me to mioux-svn@insertcoins.net
 
 This is Ansi C with terminal version, not Arduino/Navspark version.
 
-Run this to compile program (replace "main" with "main.exe" for windows):
+Run this to compile Linux program :
 gcc -g -Wall -std=c99 *.c -o main
+
+Run this to compile Windows program :
+windres main.rc -O coff -o main.res
+gcc -g -Wall -std=c99 *.c *.res -o main.exe
 
 Test : ./main JBSWY3DPEHPK3PXP
 Should be the same code as http://blog.tinisles.com/2011/10/google-authenticator-one-time-password-algorithm-in-javascript/
