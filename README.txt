@@ -6,8 +6,7 @@ Source code can be found here https://code.google.com/p/google-authenticator/sou
 Apache 2.0 licence is available at http://www.apache.org/licenses/LICENSE-2.0
 
 Rest of the code is under WTFPL license. See LICENSE.txt for more information
-Source of this is at https://svn.tamdb.net/Navspark-GoogleAuth/
-To get access, please email me to mioux-svn@insertcoins.net
+Source of this is at https://github.com/mioux/navspark-googleauth
 
 This is Ansi C with terminal version, not Arduino/Navspark version.
 
