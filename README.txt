@@ -1,7 +1,7 @@
 Part of this program comes from PAM module from google authenticator
 These parts are under Apache 2.0 Licence. It may have been modified by myself
 
-Source code can be found here https://code.google.com/p/google-authenticator/source/browse/libpam/
+Source code can be found here https://github.com/google/google-authenticator/tree/master/libpam
 
 Apache 2.0 licence is available at http://www.apache.org/licenses/LICENSE-2.0
 
