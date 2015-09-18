@@ -15,7 +15,7 @@ Run this to compile Linux program :
 gcc -g -Wall -std=c99 *.c -o main
 
 Run this to compile Windows program :
-windres main.rc -O coff -o main.res
+windres main.rs -O coff -o main.res
 gcc -g -Wall -std=c99 *.c *.res -o main.exe
 
 Test : ./main JBSWY3DPEHPK3PXP
