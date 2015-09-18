@@ -11,6 +11,9 @@
 
 int main(int argc, char **argv)
 {
+  uint8_t *key;
+  int secretLen;
+
   if (argc != 2)
   {
     fprintf(stderr, "Usage : %s <key>\n", argv[0]);
@@ -24,6 +27,8 @@ int main(int argc, char **argv)
   int epoch = 0;
   int epoch_new = 0;
 
+  key = get_shared_secret(argv[1], &secretLen);
+  
   while(1)
   {
     if(mx_kbhit() != 0)
@@ -32,7 +37,7 @@ int main(int argc, char **argv)
 	epoch_new = (int)time(NULL) / 30;
 	
 	if (epoch_new != epoch)
-		printf("\rCode  : %06d\r\n", calculate(argv[1], epoch_new));
+		printf("\rCode  : %06d\r\n", compute_code(key, secretLen, epoch_new));
 	
 	epoch = epoch_new;
 	
